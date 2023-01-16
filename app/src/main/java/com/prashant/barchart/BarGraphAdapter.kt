@@ -36,12 +36,7 @@ class BarGraphAdapter(private val list: List<BarModel>, val activity: Activity) 
             }
             progressHorizontal.progress = list[position].value
             progressHorizontal.max = 100
-            verticalView.visibility = if (position == 0) {
-                VISIBLE
-            } else {
-                GONE
-            }
-
+            verticalView.visibility = VISIBLE.takeIf { position==0 }?:GONE
         }
     }
 
@@ -69,11 +64,7 @@ class BarGraphHorizontalAdapter(
             Log.e("TAG", "onBindViewHolder: ${barModelList[position].value}")
             progressHorizontal.max = 100
 //            progressHorizontal.progressDrawable = progressDrawable
-            bottomView.visibility = if (position == barModelList.size - 1) {
-                VISIBLE
-            } else {
-                GONE
-            }
+            bottomView.visibility = VISIBLE.takeIf { position == barModelList.size - 1 }?:GONE
 
         }
     }
