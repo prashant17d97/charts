@@ -32,21 +32,25 @@ class BarGraphAdapter(private val list: List<BarModel>, val activity: Activity) 
                 clBarValue.visibility = VISIBLE
                 Handler(Looper.getMainLooper()).postDelayed({
                     clBarValue.visibility = INVISIBLE
-//                    notifyItemChanged(position)
                 }, 2000)
             }
             progressHorizontal.progress = list[position].value
             progressHorizontal.max = 100
-            if (position == 0) {
-                verticalView.visibility = VISIBLE
+            verticalView.visibility = if (position == 0) {
+                VISIBLE
+            } else {
+                GONE
             }
+
         }
     }
+
     override fun getItemCount() = list.size
 }
 
-class BarGraphHorizontalAdapter(private val barModelList: List<BarModel>, private val activity: Activity) :
-    RecyclerView.Adapter<BarGraphHorizontalAdapter.BarView>() {
+class BarGraphHorizontalAdapter(
+    private val barModelList: List<BarModel>, private val activity: Activity
+) : RecyclerView.Adapter<BarGraphHorizontalAdapter.BarView>() {
     private var progressDrawable = ContextCompat.getDrawable(activity, R.drawable.custom_progress)
 
     inner class BarView(val binding: BarViewHorizontalBinding) :
@@ -62,11 +66,13 @@ class BarGraphHorizontalAdapter(private val barModelList: List<BarModel>, privat
         with(holder.binding) {
             tvXAxis.text = barModelList[position].xAxisValue
             progressHorizontal.progress = barModelList[position].value
-            Log.e("TAG", "onBindViewHolder: ${barModelList[position].value}", )
+            Log.e("TAG", "onBindViewHolder: ${barModelList[position].value}")
             progressHorizontal.max = 100
 //            progressHorizontal.progressDrawable = progressDrawable
-            if (position == barModelList.size - 1) {
-                bottomView.visibility = VISIBLE
+            bottomView.visibility = if (position == barModelList.size - 1) {
+                VISIBLE
+            } else {
+                GONE
             }
 
         }
