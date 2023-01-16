@@ -27,14 +27,14 @@ class BarGraphAdapter(private val list: List<BarModel>, val activity: Activity) 
     override fun onBindViewHolder(holder: BarView, position: Int) {
         with(holder.binding) {
             tvXAxis.text = list[position].xAxisValue
-            tvBarValue.text = list[position].value.toString()
+            tvBarValue.text = list[position].barValue.toString()
             progressHorizontal.setOnClickListener {
                 clBarValue.visibility = VISIBLE
                 Handler(Looper.getMainLooper()).postDelayed({
                     clBarValue.visibility = INVISIBLE
                 }, 2000)
             }
-            progressHorizontal.progress = list[position].value
+            progressHorizontal.progress = list[position].barValue
             progressHorizontal.max = 100
             verticalView.visibility = VISIBLE.takeIf { position==0 }?:GONE
         }
@@ -60,8 +60,8 @@ class BarGraphHorizontalAdapter(
     override fun onBindViewHolder(holder: BarView, position: Int) {
         with(holder.binding) {
             tvXAxis.text = barModelList[position].xAxisValue
-            progressHorizontal.progress = barModelList[position].value
-            Log.e("TAG", "onBindViewHolder: ${barModelList[position].value}")
+            progressHorizontal.progress = barModelList[position].barValue
+            Log.e("TAG", "onBindViewHolder: ${barModelList[position].barValue}")
             progressHorizontal.max = 100
 //            progressHorizontal.progressDrawable = progressDrawable
             bottomView.visibility = VISIBLE.takeIf { position == barModelList.size - 1 }?:GONE
